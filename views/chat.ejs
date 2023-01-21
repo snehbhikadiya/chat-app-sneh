@@ -1,0 +1,120 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+<link rel="stylesheet" href="/css/chat.css">
+<div class="page-content page-container" id="page-content">
+
+  <div class="padding">
+    <div class="  chat2 container d-flex justify-content-center align-items-center">
+      <div class="chat">
+        <div class="card card-bordered">
+          <div class="card-header">
+            <h4 class="card-title"><strong>Chat</strong></h4>
+            <a class="btn btn-xs btn-secondary" href="#" data-abc="true">Let's Chat App</a>
+          </div>
+
+
+          <div class="ps-container ps-theme-default ps-active-y" id="chat-content"
+            style="overflow-y: scroll !important; height:400px !important;">
+
+
+            <div class="media media-meta-day">Today</div>
+
+           
+
+            <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+              <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+            </div>
+            <div class="ps-scrollbar-y-rail" style="top: 0px; height: 0px; right: 2px;">
+              <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 2px;"></div>
+            </div>  
+          </div>
+          <form id="chatForm">
+            <div class="publisher bt-1 border-light">
+              <img class="avatar avatar-xs" src="https://img.icons8.com/color/36/000000/administrator-male.png"
+                alt="...">
+              <input class="publisher-input" type="text" id="message" placeholder="Write something">
+              <span class="publisher-btn file-group">
+                <i class="fa fa-paperclip file-browser"></i>
+                <input type="file">
+              </span>
+              <a class="publisher-btn" href="#" data-abc="true"><i class="fa fa-smile"></i></a>
+              <button class="publisher-btn text-info" type="submit" data-abc="true"><i
+                  class="fa fa-paper-plane"></i></button>
+            </div>
+          </form>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+
+  const socket = io()
+
+  socket.on("connect", () => {
+    socket.emit("join", "viral@gmail.com")
+    console.log("client socket connected")
+  });
+
+  socket.on('welcome', (data) => {
+    console.log(data);
+  })
+
+  socket.on('newConnection', (data) => {
+    console.log(data);
+  })
+
+  const form = document.getElementById('chatForm')
+  const message = document.getElementById('message')
+  const chatContent = document.getElementById('chat-content')
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault()
+    debugger
+    const msg = message.value;
+    appendmessage(msg)
+    socket.emit("sendMessage",msg)
+    message.value = ''
+
+  })
+
+  socket.on('receiveMessage', (data) => {
+
+    appendreceviemessage(data)
+
+   
+  })
+
+  function appendmessage(message){
+    const divElement=document.createElement('div');
+
+    divElement.innerHTML= `<div class="media media-chat media-chat-reverse">
+      <div class="media-body">
+          <p>${message}</p>
+      </div>
+  </div>`
+
+  chatContent.appendChild(divElement)
+  }
+
+
+  const appendreceviemessage=(message)=>
+  {
+    const divElement=document.createElement('div');
+
+    divElement.innerHTML=` <div class="media media-chat">
+      <img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png" >
+      <div class="media-body">
+        <p>${message}</p>
+      </div>
+    </div>`
+
+    chatContent.appendChild(divElement)
+  }
+
+</script>
