@@ -41,6 +41,7 @@
               <a class="publisher-btn" href="#" data-abc="true"><i class="fa fa-smile"></i></a>
               <button class="publisher-btn text-info" type="submit" data-abc="true"><i
                   class="fa fa-paper-plane"></i></button>
+                  <input type="hidden" id="userid" value="<%=userId%>">
             </div>
           </form>
 
@@ -56,14 +57,21 @@
 
   const socket = io()
 
+  const user=document.getElementById('userid')
+
   socket.on("connect", () => {
-    socket.emit("join", "viral@gmail.com")
+    const userId=user.value
+    console.log("userid",userId);
+    socket.emit("join",userId)
+    
     console.log("client socket connected")
   });
 
   socket.on('welcome', (data) => {
     console.log(data);
   })
+
+  
 
   socket.on('newConnection', (data) => {
     console.log(data);

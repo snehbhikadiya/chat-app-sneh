@@ -9,4 +9,11 @@ module.exports=(io,socket)=>{
     {
         socket.broadcast.emit("receiveMessage",data);
     })
+
+    socket.on('join',(data)=>
+    {
+        console.log(data);
+        socket.join(data);   
+
+    })
 }

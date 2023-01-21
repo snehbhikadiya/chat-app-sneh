@@ -34,7 +34,7 @@ exports.login=async(req,res)=>
     {
         return res.redirect('/login');
     }
-    req.session.userId=finduser
+    req.session.user=finduser
     return res.redirect('/dashboard');
 }
 

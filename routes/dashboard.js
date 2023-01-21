@@ -11,6 +11,6 @@ const use=(fn)=>(req,res,next)=>
 routes.get('/dashboard',authorise,use(dashboardController.dashboard));
 routes.get('/logout',authorise,use(dashboardController.logout));
 
-routes.get('/chat',use(dashboardController.chat));
+routes.get('/chat',authorise,use(dashboardController.chat));
 
 module.exports=routes

@@ -5,7 +5,9 @@ exports.dashboard=async(req,res)=>
 
 exports.chat=async(req,res)=>
 {
-    res.render('chat');
+    const user=req.user
+
+    res.render('chat',{userId:user._id});
 }
 
 
