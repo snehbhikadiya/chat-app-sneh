@@ -22,6 +22,7 @@ exports.getlogin=async(req,res)=>
     res.render('login');
 }
 
+
 exports.login=async(req,res)=>
 {
     const{email,password}=req.body
@@ -109,4 +110,10 @@ exports.reset=async(req,res)=>
    finduser.password=password
    await finduser.save();
    return res.redirect('/login');
+}
+
+
+exports.error=async(req,res)=>
+{
+    res.render('error');
 }

@@ -11,6 +11,7 @@ const use=(fn)=>(req,res,next)=>
 
 
 routes.get('/register',use(authController.getregister));
+
 routes.post('/register',use(authController.register));
 
 
@@ -23,5 +24,9 @@ routes.post('/forget',use(authController.forget));
 routes.get('/reset',use(authController.getrest));
 routes.post('/reset',use(authController.reset));
 
+
+routes.get('/error',use(authController.error));
+
+routes.get('*',use(authController.error));
 
 module.exports=routes

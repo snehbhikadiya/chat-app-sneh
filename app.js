@@ -38,6 +38,8 @@ app.use(session({
 }))
 
 
+
+
 app.use(routes);
 app.use((err,req,res,next)=>
 {
@@ -49,6 +51,10 @@ app.use((err,req,res,next)=>
     })
 })
 
+// app.use((req,res,next)=>
+// {
+//     res.render('error');
+// })
 
 server.listen(3000,()=>
 {
